@@ -1,5 +1,3 @@
-required  "pry"
-
 def welcome
   puts "Welcome to the Blackjack Table"
 end
@@ -49,13 +47,20 @@ def invalid_command
   prompt_user
   get_user_input
 end
+
+#####################################################
+# get every test to pass before coding runner below #
+#####################################################
+
 def runner
-  welcome
-  card_total = initial_round
-  until card_total > 21
+  welcome #introduce the game
+
+  card_total = initial_round #determine your current total & tell user what number they currently have
+  until card_total > 21 #continue game until user loses
     card_total = hit?(card_total)
     display_card_total(card_total)
   end
-  end_game(card_total)
- end
+  end_game(card_total) #prints out once user has lost
 end
+
+runner
