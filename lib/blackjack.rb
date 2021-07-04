@@ -1,33 +1,52 @@
+require "pry"
+
 def welcome
-  # code #welcome here
+  puts "Welcome to the Blackjack Table"
 end
 
 def deal_card
-  # code #deal_card here
+  return 1 + rand(11)
 end
 
-def display_card_total
-  # code #display_card_total here
+def display_card_total(total)
+  puts "Your cards add up to #{total}"
 end
 
 def prompt_user
-  # code #prompt_user here
+  puts "Type 'h' to hit or 's' to stay"
 end
 
 def get_user_input
-  # code #get_user_input here
+  inputs = gets.chomp
 end
 
-def end_game
-  # code #end_game here
+def end_game(total)
+  puts "Sorry, you hit #{total}. Thanks for playing!"
 end
 
 def initial_round
-  # code #initial_round here
+  sum = 0 
+  2.times do 
+    sum += deal_card
+  end
+  
+  display_card_total(sum)
+  return sum
 end
 
-def hit?
-  # code hit? here
+def hit?(sum)
+  
+  prompt_user
+  command = get_user_input
+  
+  if command == "h"
+    sum += deal_card
+  elsif command == "s"
+    return sum
+  else 
+    return sum
+  end
+  
 end
 
 def invalid_command
@@ -39,6 +58,22 @@ end
 #####################################################
 
 def runner
-  # code runner here
-end
+  welcome 
+  sum = initial_round
+  until sum > 21
+    #sum is being added to itself b/c return statements from the #hit method are integers
+    beforeHit = sum
+    addToSum = hit?(sum)
     
+    if beforeHit < addToSum
+      sum = addToSum
+    else
+      sum = beforeHit
+    end
+    
+    display_card_total(sum)
+  
+  end
+  end_game(sum)
+
+end
